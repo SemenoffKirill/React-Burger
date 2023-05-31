@@ -67,14 +67,14 @@ function App() {
               }
             />
             <Route path="/feed" element={<FeedPage />}>
-              <Route path="/feed/:id" /> {/* Айди заказа */}
+              <Route path="/feed/:id" /> {}
             </Route>{' '}
-            {/* Лента заказов */}
+            {}
             <Route path="/profile/orders">
               <Route path="/profile/orders/:id" />{' '}
-              {/* must be a protected route */}
+              {}
             </Route>{' '}
-            {/* must be a protected route */}
+            {}
             <Route path="/ingredients/:id" element={<IngredientPage />} />
             <Route path="*" element={<PageNotfound />} />
           </Routes>

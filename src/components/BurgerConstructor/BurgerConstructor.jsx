@@ -27,13 +27,13 @@ function BurgerConstructor({ closePopup }) {
 
   const notBun = useMemo(() => selectedIngredients.filter((ingredient) => ingredient.type !== 'bun'), [selectedIngredients]);
   const bun = useMemo(() => selectedIngredients.find((ingredient) => ingredient.type === 'bun'), [selectedIngredients]);
-  //calculating items prices
+  
   const sum = useMemo(() => {
     return selectedIngredients.reduce(
       (acc, ingredient) =>
         ingredient === bun ? acc + ingredient.price * 2 : acc + ingredient.price, 0);
   }, [selectedIngredients, bun]);
-  // order button listener
+  
   const onOrderClick = () => {
     const dataId = notBun.map((element) => element._id);
     const buns = new Array(2).fill(bun);
@@ -47,7 +47,7 @@ function BurgerConstructor({ closePopup }) {
       dispatch(deleteAllIngredients(selectedIngredients));
     }
   };
-  // drop listener
+
   const handleDrop = (item) => {
     const selectedIngredient = burgerData.find(ingredient => ingredient._id === item._id);
     dispatch({
@@ -55,7 +55,7 @@ function BurgerConstructor({ closePopup }) {
       payload: [...selectedIngredients, selectedIngredient]
     })
   };
-  // drop hook
+
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
@@ -65,7 +65,7 @@ function BurgerConstructor({ closePopup }) {
       handleDrop(item)
     },
   });
-  // not-working as i want to
+
   const moveIngredients = useCallback((dragIndex, hoverIndex) => {
     dispatch(sortIngredients(dragIndex, hoverIndex, selectedIngredients));
   }, [selectedIngredients, dispatch]);

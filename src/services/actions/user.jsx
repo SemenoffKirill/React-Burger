@@ -1,27 +1,26 @@
 import { checkUserDataRequest, loginRequest, refreshTokenRequest, registerUserRequest, signOutRequest, changeUserDataRequest } from "../../utils/Api";
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie";
 
-// login
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-// registration
+
 export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = ' REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
-// sing out
+
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
-// set user data 
+
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_USER_DATA_SUCCESS = 'SET_USER_DATA_SUCCESS';
 export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
-// get user data
+
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
-// password forgot check
+
 export const SET_FORGOT_PASSWORD = 'SET_FORGOT_PASSWORD';
 
 export const loginLoading = () => ({ type: LOGIN });
