@@ -1,0 +1,21 @@
+.listItem {
+  position: relative;
+}
+
+.paragraph {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.dragging {
+  filter: grayscale(100);
+}
+
+.bunName {
+  composes: paragraph;
+}
+
+.link {
+  text-decoration: none;
+}

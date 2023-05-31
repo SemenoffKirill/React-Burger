@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 180px;
+  width: 480px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+}
+
+.text {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.buttonLink {
+  text-decoration: none;
+  color: white;
+}
