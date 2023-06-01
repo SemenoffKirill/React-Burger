@@ -12,14 +12,14 @@ import { useDispatch } from 'react-redux';
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const userData = useSelector((state) => state.userInfo.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(setLogin(email, password));
-    // alert( document.cookie )
+
     navigate('/');
   };
 
