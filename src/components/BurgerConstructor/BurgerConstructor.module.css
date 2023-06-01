@@ -1,72 +1,37 @@
-.container {
-  display: flex;
-  flex-direction: column;
+.section {
+  width: 600px;
+  margin: 0;
 }
 
-.filling {
+.list {
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  max-height: 600px;
-  min-width: 600px;
-  margin-left: 12px;
+  list-style-type: none;
+  max-height: 480px;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-::-webkit-scrollbar-thumb {
-  background: #8585ad;
-  border: 3px solid #8585ad;
-  box-sizing: border-box;
+.dropping {
+  border: 1px #4C4CFF dashed;
+  border-radius: 20px;
 }
 
-.filling__list {
+.element {
   display: flex;
-  flex-direction: column;
-  min-height: 100px;
-  padding-left: 10px;
-  gap: 18px;
-  align-items: flex-start;
-}
-
-.filling__element {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  list-style: none;
-}
-.filling__info {
-  display: flex;
-  margin-left: 13px;
-  width: 535px;
 }
 
-.container__bun {
+.total {
   display: flex;
-  padding-left: 55px;
-}
-
-.order__info {
-  display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: flex-end;
-}
-
-.order__price {
-  display: flex;
   align-items: center;
-  margin-right: 40px;
 }
 
-.order__price svg {
-  width: 33px;
-  height: 33px;
+.sum {
+  composes: total;
+  gap: 10px;
 }
 
-.hover {
-  box-shadow: 0 0 10px 10px rgba(151, 151, 243, 0.25),
-    0 0 10px 10px rgba(151, 151, 243, 0.25);
+.drag {
+  cursor: pointer;
 }

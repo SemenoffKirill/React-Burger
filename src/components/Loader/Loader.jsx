@@ -9,7 +9,7 @@ export default function Loader({ loading, error, text }) {
           <p className='text text_type_main-large'>Отправляем ваш заказ</p>
           <img
             src={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
-            alt="Анимация загрузки"
+            alt="Загрузка"
             className={styles.loader}
           />
         </div>
@@ -22,7 +22,6 @@ export default function Loader({ loading, error, text }) {
 }
 
 Loader.propTypes = {
-  // loading: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
   text: PropTypes.string
 }

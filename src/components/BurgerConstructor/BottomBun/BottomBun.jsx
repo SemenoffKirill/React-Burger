@@ -18,7 +18,7 @@ export function BottomBun() {
       /> : <ConstructorElement
         type="bottom"
         isLocked={true}
-        text={'Выберите булочку (низ)'}
+        text={'Перетяните булочку сюда (низ)'}
         price={0}
         thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}
       />

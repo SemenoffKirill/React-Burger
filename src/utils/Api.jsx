@@ -78,6 +78,7 @@ export function loginRequest(email, password) {
     })
   })
 }
+
 export function checkUserDataRequest(accessToken) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'GET',
@@ -87,6 +88,7 @@ export function checkUserDataRequest(accessToken) {
     }
   })
 }
+
 export function changeUserDataRequest(name, email, password, accessToken) {
   return request(`${BURGER_API_URL}${USER_URL}`, {
     method: 'PATCH',
@@ -101,6 +103,7 @@ export function changeUserDataRequest(name, email, password, accessToken) {
     })
   })
 }
+
 export function refreshTokenRequest(refreshToken) {
   return request(`${BURGER_API_URL}${TOKEN_URL}`, {
     method: 'POST',
@@ -113,6 +116,7 @@ export function refreshTokenRequest(refreshToken) {
   }
   )
 }
+
 export function signOutRequest(refreshToken) {
   return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
     method: 'POST',
