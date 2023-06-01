@@ -85,11 +85,11 @@ function BurgerConstructor({ closePopup }) {
       {selectedIngredients.length > 0 && bun ?
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-          <Button size="large" type="primary" htmlType='button' onClick={onOrderClick}>Оформить заказ</Button>
+          <Button size="large" type="primary" htmlType='submit' onClick={onOrderClick}>Оформить заказ</Button>
         </div> :
         <div className={'mr-4 ' + styles.total}>
           <span className={'text text_type_digits-medium mr-10 ' + styles.sum}>{sum}{<CurrencyIcon />}</span>
-          <Button size="large" type="secondary" htmlType='button' disabled onClick={onOrderClick}>Оформить заказ</Button>
+          <Button size="large" type="secondary" htmlType='submit' disabled onClick={onOrderClick}>Оформить заказ</Button>
         </div>
       }
       {isOrderModalOpen && (

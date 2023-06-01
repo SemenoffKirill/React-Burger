@@ -20,7 +20,6 @@ import { PageNotfound } from '../../pages/404/404';
 import { ProfilePage } from '../../pages/profile/profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { IngredientPage } from '../../pages/ingredients/ingredients';
-import { FeedPage } from '../../pages/feed/feed';
 import { getUserInfo } from '../../services/actions/user';
 import { getCookie } from '../../utils/cookie';
 
@@ -66,10 +65,6 @@ function App() {
                 <ProtectedRoute element={<ProfilePage />} to={'/login'} />
               }
             />
-            <Route path="/feed" element={<FeedPage />}>
-              <Route path="/feed/:id" /> {}
-            </Route>{' '}
-            {}
             <Route path="/profile/orders">
               <Route path="/profile/orders/:id" />{' '}
               {}

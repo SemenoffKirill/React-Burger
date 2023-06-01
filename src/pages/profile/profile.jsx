@@ -154,7 +154,7 @@ export function ProfilePage() {
               >
                 Отмена
               </Button>
-              <Button type="primary" size="medium" htmlType="submit">
+              <Button type="primary" size="medium" htmlType="button">
                 Сохранить
               </Button>
             </div>
