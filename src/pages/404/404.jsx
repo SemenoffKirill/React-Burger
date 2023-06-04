@@ -1,23 +1,29 @@
-import styles from './404.module.css';
-import {
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
+import {
+  Button
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './404.module.css';
+import notFound from '../../images/not-found.png';
 
-export function PageNotfound() {
+export const NotFound404 = () => {
   const navigate = useNavigate();
 
-  const onClick = () => {
-    navigate('/')
-  }
+  const onClick = () => navigate(-1);
 
   return (
     <div className={styles.container}>
-      <div className={"mt-20 mb-20 " + styles.wrapper}>
-        <h2 className='text text_type_main-large mb-6'>404</h2>
-        <p className={'text text_type_main-default text_color_primary ' + styles.text}>Страница не найдена</p>
-      </div>
-      <Button type='primary' htmlType='button' onClick={onClick}>Вернуться</Button>
-    </div>
-  );
+      <img src={notFound} alt="404 страница не найдена" className={styles.image} />
+
+      <p className="text text_type_main-large mb-6">
+        Сраница не найдена!
+      </p>
+
+      <Button
+        htmlType='button'
+        type="primary"
+        size="medium"
+        onClick={onClick}>
+        Назад
+      </Button>
+    </div >)
 }

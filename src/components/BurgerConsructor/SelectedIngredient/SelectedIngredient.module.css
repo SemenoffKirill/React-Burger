@@ -1,0 +1,9 @@
+.filling {
+  display: flex;
+	align-items: center;
+	column-gap: 14px;
+}
+
+.filling:first-of-type{
+  padding-top: 0;
+}

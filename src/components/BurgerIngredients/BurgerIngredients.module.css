@@ -1,37 +1,24 @@
-.ingredients {
-	box-sizing: border-box;
-	width: 600px;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-}
-
-.wrapper {
-	margin: 0 auto;
-	height: 756px;
-}
-
-.scroll {
-	overflow-y: scroll;
-	height: 660px;
-}
-
-.tabs {
-	display: flex;
-	flex-direction: row;
+.section {
+  max-width: 600px;
 }
 
 .list {
-	margin: 0;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	row-gap: 32px;
-	column-gap: 24px;
-	list-style-type: none;
-	cursor: pointer;
+  width: 100%;
+  height: calc(100vh - 324px);
+  min-height: 208px;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.disabled {
-	filter: grayscale(100);
-	cursor: not-allowed;
+.list::-webkit-scrollbar {
+  width: 8px;
+  height: auto;
+  background-color: #2f2f37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
 }

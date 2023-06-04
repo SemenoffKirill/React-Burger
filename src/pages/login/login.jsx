@@ -1,72 +1,72 @@
 import { useState } from 'react';
-import styles from './login.module.css';
-import {
-  PasswordInput,
-  EmailInput,
-  Button,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { setLogin } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  EmailInput,
+  PasswordInput,
+  Button
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './login.module.css';
+import { logIn } from '../../services/actions/user';
 
-export function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
+export const Login = () => {
   const dispatch = useDispatch();
+  const [form, setValue] = useState({ email: '', password: '' });
 
-  const onFormSubmit = (e) => {
+  const onChange = (e) => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(setLogin(email, password));
-
-    navigate('/');
+    dispatch(logIn(form));
   };
 
   return (
     <div className={styles.container}>
-      <h2 className="text text_type_main-medium mb-6">Вход</h2>
-      <form className={styles.form} onSubmit={onFormSubmit}>
-        <EmailInput
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <PasswordInput
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button type="primary" size="medium">
+      <h2 className={`${styles.title} text text_type_main-medium pb-6`}>Вход</h2>
+
+      <form className={`${styles.form} pb-20`} onSubmit={onSubmit}>
+        <div className='pb-6'>
+          <EmailInput
+            onChange={onChange}
+            value={form.email}
+            name={'email'}
+            size='default'
+          />
+        </div>
+
+        <div className='pb-6'>
+          <PasswordInput
+            onChange={onChange}
+            value={form.password}
+            name={'password'}
+            size='default'
+          />
+        </div>
+
+        <Button htmlType='submit' type='primary' size='medium'>
           Войти
         </Button>
       </form>
-      <div className={'mt-20 ' + styles.wrapper}>
-        <p
-          className={
-            'text text_type_main-default text_color_inactive ' + styles.text
-          }
-        >
-          Вы новый пользователь?
-          <Link to="/register" className={styles.link}>
-            Зарегистрироваться
-          </Link>
-        </p>
-        <p
-          className={
-            'text text_type_main-default text_color_inactive ' + styles.text
-          }
-        >
-          Забыли пароль?
-          <Link to="/forgot-password" className={styles.link}>
-            Восстановить пароль
-          </Link>
-        </p>
-      </div>
+
+      <p className='text text_type_main-default text_color_inactive pb-4'>
+        Вы — новый пользователь?
+        <Link
+          className={`${styles.link} pl-2`}
+          to='/register'>
+          Зарегистрироваться
+        </Link>
+      </p>
+
+      <p className='text text_type_main-default text_color_inactive'>
+        Забыли пароль?
+        <Link
+          className={`${styles.link} pl-2`}
+          to='/forgot-password'>
+          Восстановить пароль
+        </Link>
+      </p>
     </div>
-  );
+  )
 }

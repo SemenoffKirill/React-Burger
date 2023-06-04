@@ -1,43 +1,78 @@
-import styles from './IngredientDetails.module.css'
-import { IngredientPropTypes } from '../../../utils/PropTypes';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getBurgerIngredients } from '../../../services/reducers/rootReducer';
+import styles from './IngredientDetails.module.css'
 
-function IngredientDetails({ currentIngredient }) {
+export default function IngredientDetails({ isBackground }) {
+  const { ingredients } = useSelector(getBurgerIngredients);
+  const { id } = useParams();
+  const ingredient = ingredients.find((ingredient) => ingredient._id === id);
 
-  const current = useSelector((state) => state.ingredients.currentIngredient);
-  let id = current._id;
+  const IngredientDetailsElement = ({ container, title }) => {
+    return ingredient ? (
+      <div className={`${container} pb-5`}>
+        <h2 className={`${title} text text_type_main-large pt-4 pb-5`}>
+          Детали ингредиента
+        </h2>
 
-  return (
-    <div className={styles.wrapper + ' pb-15 pl-10 pr-10'}>
-      <Link className={styles.link} to={`/ingredients/${id}`} >
-        <img src={currentIngredient.image_large} alt={currentIngredient.name} />
-        <h4 className={'mt-4 mb-8 text text_type_main-medium ' + styles.title}>{currentIngredient.name}</h4>
-      </Link>
-      <ul className={styles.options}>
-        <li className={styles.characts}>
-          <span className={'text text_color_inactive text_type_main-default'}>Калории,ккал</span>
-          <span className='text text_type_digits-default text_color_inactive'>{currentIngredient.calories}</span>
-        </li>
-        <li className={styles.characts}>
-          <span className={'text text_color_inactive text_type_main-default'}>Белки,г</span>
-          <span className='text text_type_digits-default text_color_inactive'>{currentIngredient.proteins}</span>
-        </li>
-        <li className={styles.characts}>
-          <span className={'text text_color_inactive text_type_main-default'}>Жиры,г</span>
-          <span className='text text_type_digits-default text_color_inactive'>{currentIngredient.fat}</span>
-        </li>
-        <li className={styles.characts}>
-          <span className={'text text_color_inactive text_type_main-default'}>Углеводы,г</span>
-          <span className='text text_type_digits-default text_color_inactive'>{currentIngredient.carbohydrates}</span>
-        </li>
-      </ul>
-    </div>
-  )
+        <img
+          src={ingredient.image_large}
+          alt={ingredient.name}
+        />
+
+        <h3 className='text text_type_main-medium pt-4 pb-4'>
+          {ingredient.name}
+        </h3>
+
+        <ul className={`${styles.list} pt-4 pb-5`}>
+          <li className={`${styles.item}`}>
+            <p className='text text_type_main-default text_color_inactive pb-2'>
+              Калории,ккал
+            </p>
+            <p className='text text_type_main-default text_color_inactive'>
+              {ingredient.calories}
+            </p>
+          </li>
+
+          <li className={`${styles.item}`}>
+            <p className='text text_type_main-default text_color_inactive pb-2'>
+              Белки, г
+            </p>
+            <p className='text text_type_main-default text_color_inactive'>
+              {ingredient.proteins}
+            </p>
+          </li>
+
+          <li className={`${styles.item}`}>
+            <p className='text text_type_main-default text_color_inactive pb-2'>
+              Жиры, г
+            </p>
+            <p className='text text_type_main-default text_color_inactive'>
+              {ingredient.fat}
+            </p>
+          </li>
+
+          <li className={`${styles.item}`}>
+            <p className='text text_type_main-default text_color_inactive pb-2'>
+              Углеводы, г
+            </p>
+            <p className='text text_type_main-default text_color_inactive'>
+              {ingredient.carbohydrates}
+            </p>
+          </li>
+        </ul>
+      </div>
+    ) : null;
+  }
+
+  return isBackground
+    ? <IngredientDetailsElement
+      container={styles.container}
+      title={styles.title} />
+    : <IngredientDetailsElement
+      container={styles.containerRoute}
+      title={styles.titleRouter}
+    />
 }
-
-IngredientDetails.propTypes = {
-  currentIngredient: IngredientPropTypes
-}
-
-export default IngredientDetails;

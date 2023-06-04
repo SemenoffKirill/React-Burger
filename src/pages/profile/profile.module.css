@@ -1,58 +1,52 @@
 .container {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin-top: 180px;
-  width: 480px;
-  gap: 60px;
+	display: flex;
+  justify-self: flex-start;
+  width: 100%;
+	max-width: 1280px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 24px;
+.nav {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+  width: 100%;
+  max-width: 320px;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.navigation {
-  width: 320px;
-}
-
-.profLink {
-  text-decoration: none;
-  width: 320px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-}
-
-.profLink:hover {
-  color: #F2F2F3;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-
+.list {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin: 0;
+	padding: 0;
+  width: 100%;
+  list-style: none;
 }
 
 .text {
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
+	text-align: left;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
+.item {
+	padding: 17px 0;
+}
+
+.link {
+	text-decoration: none;
+	transition: color .25s ease-in;
+}
+
+.link:hover {
+	color: #f2f2f3;
+}
+
+.linkActive {
+  cursor: default;
+	color: #f2f2f3;
+	
+}
+
+.form {
+	width: 100%;
+  max-width: 480px;
 }

@@ -1,166 +1,152 @@
-import styles from './profile.module.css';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLogout, sendUserInfo } from '../../services/actions/user';
-import { getCookie } from '../../utils/cookie';
-import { getUserInfo } from '../../services/actions/user';
+import styles from './profile.module.css';
+import {
+  logOut,
+  IS_CHANGED,
+  STOP_CHANGE,
+  setChangedUser,
+} from '../../services/actions/user';
+import { getAuthData } from '../../services/reducers/rootReducer';
 
-export function ProfilePage() {
+export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.userInfo.accessToken);
-  const userData = useSelector((state) => state.userInfo.user.user);
 
-  const [nameValue, setNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isInfoChanged, setIsInfoChanged] = useState(false);
+  const { userData, isChanged } = useSelector(getAuthData);
+  const name = userData.user.name;
+  const email = userData.user.email;
 
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passRef = useRef(null);
+  const [change, setChange] = useState({ name: name, email: email, password: '' });
 
-  const onNameChange = (e) => {
-    const value = e.target.value;
-    setTimeout(() => nameRef.current.focus(), 0);
-    setNameValue(value);
-    value === userData.name ? setIsInfoChanged(false) : setIsInfoChanged(true);
+  const onChange = (e) => {
+    dispatch({ type: IS_CHANGED });
+    setChange({ ...change, [e.target.name]: e.target.value });
   };
 
-  const onEmailChange = (e) => {
-    const value = e.target.value;
-    setTimeout(() => emailRef.current.focus(), 0);
-    setEmailValue(value);
-    value === userData.email ? setIsInfoChanged(false) : setIsInfoChanged(true);
+  const onResetChanges = () => {
+    setChange({ name: name, email: email, password: '' });
+    dispatch({ type: STOP_CHANGE });
   };
 
-  const onPassChange = (e) => {
-    const value = e.target.value;
-    setTimeout(() => passRef.current.focus(), 0);
-    setPasswordValue(value);
-    value === passwordValue ? setIsInfoChanged(false) : setIsInfoChanged(true);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setChangedUser(change));
+    setChange({ ...change, password: '' });
+    dispatch({ type: STOP_CHANGE });
   };
-
-  useEffect(() => {
-    if (userData) {
-      setNameValue(userData.name);
-      setEmailValue(userData.email);
-      setPasswordValue(passwordValue);
-    } else {
-      dispatch(getUserInfo());
-      navigate('/profile', { replace: true });
-    }
-  }, [dispatch, userData, navigate, passwordValue]);
 
   const handleLogout = () => {
-    const refreshToken = getCookie('refreshToken');
-    dispatch(setLogout(refreshToken));
-  };
-
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    dispatch(sendUserInfo(nameValue, emailValue, passwordValue, token));
-    alert('User Data successfully changed'); // убрать
-  };
-
-  const handleCancel = (e) => {
-    e.preventDefault();
-    setNameValue(userData.name);
-    setEmailValue(userData.email);
-    setPasswordValue('');
+    dispatch(logOut(navigate));
   };
 
   return (
-    <div className={styles.container}>
-      <nav className={styles.navigation}>
-        <div className={styles.links + ' mb-20'}>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${styles.profLink} text text_type_main-medium text_color_primary`
-                : `${styles.profLink} text text_type_main-medium text_color_inactive`
-            }
-            to="/profile"
-          >
-            Профиль
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${styles.profLink} text text_type_main-medium text_color_primary`
-                : `${styles.profLink} text text_type_main-medium text_color_inactive`
-            }
-            to="/profile/orders"
-          >
-            История заказов
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${styles.profLink} text text_type_main-medium text_color_primary`
-                : `${styles.profLink} text text_type_main-medium text_color_inactive`
-            }
-            onClick={handleLogout}
-            to="/login"
-          >
-            Выход
-          </NavLink>
-        </div>
-        <p className="text text_type_main-default text_color_inactive">
+    <div className={`${styles.container} pt-30 pl-10`}>
+      <nav className={styles.nav}>
+        <ul className={styles.list}>
+          <li className={styles.item}>
+            <NavLink
+              to='/profile'
+              className={({ isActive }) => `${styles.link} text text_type_main-medium text_color_inactive ${isActive ? styles.linkActive : ''}`}
+            >
+              Профиль
+            </NavLink>
+          </li>
+
+          <li className={styles.item}>
+            <NavLink
+              to='/profile/orders'
+              className={({ isActive }) => `${styles.link} text text_type_main-medium text_color_inactive ${isActive ? styles.linkActive : ''}`}
+            >
+              История заказов
+            </NavLink>
+          </li>
+
+          <li className={styles.item}>
+            <NavLink
+              to='/'
+              onClick={handleLogout}
+              className={({ isActive }) => `${styles.link} text text_type_main-medium text_color_inactive ${isActive ? styles.linkActive : ''}`}
+            >
+              Выход
+            </NavLink>
+          </li>
+        </ul>
+
+        <p className={`${styles.text} text text_type_main-default text_color_inactive pt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </nav>
-      <div className={styles.wrapper}>
-        <form className={styles.form} onSubmit={onFormSubmit} name="profile">
+
+      <form className={`${styles.form} pl-15`} onSubmit={onSubmit}>
+        <div className='pb-6'>
           <Input
-            type="text "
-            name="name"
-            placeholder="Имя"
+            type={'text'}
+            placeholder={'Имя'}
+            onChange={onChange}
             icon={'EditIcon'}
-            value={nameValue}
-            ref={nameRef}
-            onChange={onNameChange}
+            value={change.name}
+            name={'name'}
+            error={false}
+            errorText={'Ошибка'}
+            size={'default'}
           />
+        </div>
+
+        <div className='pb-6'>
           <Input
-            type="email"
-            name="login"
-            placeholder="Логин"
+            type={'email'}
+            placeholder={'Логин'}
+            onChange={onChange}
             icon={'EditIcon'}
-            value={emailValue}
-            ref={emailRef}
-            onChange={onEmailChange}
+            value={change.email}
+            name={'email'}
+            error={false}
+            errorText={'Ошибка'}
+            size={'default'}
           />
+        </div>
+
+        <div className='pb-6'>
           <Input
-            type="password"
-            name="password"
-            placeholder="Пароль"
+            type={'password'}
+            placeholder={'Пароль'}
+            onChange={onChange}
             icon={'EditIcon'}
-            value={passwordValue}
-            ref={passRef}
-            onChange={onPassChange}
+            value={change.password}
+            name={'password'}
+            error={false}
+            errorText={'Ошибка'}
+            size={'default'}
           />
-          {isInfoChanged && (
-            <div className={styles.buttons}>
-              <Button
-                type="secondary"
-                size="medium"
-                htmlType="button"
-                onClick={handleCancel}
-              >
-                Отмена
-              </Button>
-              <Button type="primary" size="medium" htmlType="submit">
-                Сохранить
-              </Button>
-            </div>
-          )}
-        </form>
-      </div>
-    </div>
-  );
+        </div>
+
+        {isChanged && (
+          <div>
+            <Button
+              htmlType='submit'
+              type='primary'
+              size='medium'
+            >
+              Сохранить
+            </Button>
+
+            <Button
+              onClick={onResetChanges}
+              htmlType='button'
+              type='secondary'
+              size='medium'
+            >
+              Отмена
+            </Button>
+          </div>
+        )}
+      </form>
+    </div >
+  )
 }

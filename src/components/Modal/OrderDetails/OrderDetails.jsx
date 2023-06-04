@@ -1,34 +1,21 @@
-import styles from './OrderDetails.module.css';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import Loader from '../../Loader/Loader';
+import styles from './OrderDetails.module.css'
+import icon from '../../../images/icon-done.svg'
+import { getOrderDetails } from '../../../services/reducers/rootReducer';
 
-function OrderDetails() {
-  const orderDetails = useSelector(state => state.orderData.orderDetails);
-  const loading = useSelector(state => state.orderData.orderRequest);
+export default function OrderDetails() {
+  const { order } = useSelector(getOrderDetails);
 
   return (
-    <div className={styles.card + ' pt-15 pb-30 pr-25 pl-25'}>
-      {loading ? (
-        <Loader loading={loading} />
-      ) : (
-        <>
-          <h3 className={styles.order + ' text text_type_digits-large mb-8'}>
-            {orderDetails.order.number}
-          </h3>
-          <p className='text text_type_main-medium mb-10'>Идентификатор заказа</p>
-          <span className={'mb-10 ' + styles.span}>
-            <img src="https://stellarburgers.nomoreparties.site/static/media/tick.887b83be.gif" alt="Ready icon" className={styles.icon}/>
-          </span>
-          <p className={'text text_type_main-default mb-2 ' + styles.burgerName}>
-            Ваш {orderDetails.name} начали готовить
-          </p>
-          <p className={'text text_type_main-default text_color_inactive ' + styles.burgerName}>
-            Дождитесь готовности на орбитальной станции
-          </p>
-        </>
-      )}
+    <div className={`${styles.container} pt-20 pb-20`}>
+      <h1 className='text text_type_digits-large pb-8'>
+        {order.order.number}
+      </h1>
+      <p className='text text_type_main-medium pb-15'>идентификатор заказа</p>
+      <img className={`${styles.icon} pb-15`} src={icon} alt='Заказ принят' />
+      <p className='text text_type_main-default pb-2'>Ваш заказ начали готовить</p>
+      <p className='text text_type_main-default text_color_inactive'>Дождитесь готовности на орбитальной станции</p>
     </div>
-  );
+  )
 }
-
-export default OrderDetails;

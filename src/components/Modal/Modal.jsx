@@ -1,43 +1,51 @@
-import { useEffect } from "react";
-import ReactDOM from "react-dom";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "./ModalOverlay/ModalOverlay";
-import styles from './Modal.module.css'
+import React from 'react';
+import {
+  createPortal
+} from 'react-dom';
 import PropTypes from 'prop-types';
+import {
+  CloseIcon
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from './ModalOverlay/ModalOverlay';
+import styles from './Modal.module.css';
 
-const Modal = ({ title, children, closePopup }) => {
+const modalRoot = document.getElementById('modal-root');
 
-  useEffect(() => {
-    const handleEscClose = (evt) => {
-      if (evt.key === 'Escape') {
-        closePopup()
-      }
+export default function Modal({
+  closeModal,
+  children
+}) {
+  function handleEcsClose(e) {
+    if (e.key === 'Escape') {
+      closeModal(e);
     }
-    document.addEventListener('keydown', handleEscClose);
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleEcsClose);
+
     return () => {
-      document.removeEventListener('keydown', handleEscClose); 
+      document.removeEventListener('keydown', handleEcsClose);
     }
-  }, [closePopup])
+  });
 
-  return ReactDOM.createPortal(
-    <>
-      <div className={styles.modal}>
-        <h3 className='pl-10 pt-10 text text_color_primary text_type_main-large'>{title}</h3>
-        <span className={styles.close} onClick={closePopup}>
-          <CloseIcon type='primary' />
-        </span>
+  return createPortal(
+    <ModalOverlay closeModal={closeModal}>
+      <div
+        className={`${styles.container} pt-10 pr-10 pb-10 pl-10`}
+        onClick={e => e.stopPropagation()}
+      >
         {children}
+
+        <button className={`${styles.close} mt-15 mr-10`} >
+          <CloseIcon type='primary' onClick={closeModal} />
+        </button>
       </div>
-      <ModalOverlay closePopup={closePopup}/>
-    </> ,
-    document.getElementById('modal-root')
+    </ModalOverlay>,
+    modalRoot
   )
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.object.isRequired,
-  closePopup: PropTypes.func.isRequired
-}
-
-export default Modal;
+  closeModal: PropTypes.func.isRequired,
+};

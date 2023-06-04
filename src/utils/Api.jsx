@@ -1,130 +1,124 @@
-import {
-  BURGER_API_URL, FORGOT_PASS_URL, RESET_PASS_URL, INGREDIENTS_URL, ORDER_URL, REGISTER_USER_URL, LOGIN_URL, USER_URL, TOKEN_URL, LOGOUT_URL
-} from "./PropTypes";
+export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-const checkRes = (res) => {
-  return res.ok ? res.json() : res.json().then(err => Promise.reject(`Ошибка загрузки данных с сервера: ${err.status}`))
+export const URL = {
+  ingredients: `${BASE_URL}/ingredients`,
+  orders: `${BASE_URL}/orders`,
+
+  register: `${BASE_URL}/auth/register`,
+  login: `${BASE_URL}/auth/login`,
+
+  forgotPassword: `${BASE_URL}/password-reset`,
+  resetPassword: `${BASE_URL}/password-reset/reset`,
+  
+  user: `${BASE_URL}/auth/user`,
+  logout: `${BASE_URL}/auth/logout`,
+  token: `${BASE_URL}/auth/token`,
+};
+
+const checkResponse = res => {
+  if (res.ok) {
+    return res.json()
+  } else {
+    return Promise.reject(`Ошибка: code ${res.status}`)
+  }
 }
 
-export function request(url, options) {
-  return fetch(url, options).then(checkRes)
+export const getProductData = async () => {
+  return await fetch(URL.ingredients)
+    .then(checkResponse)
 }
 
-export function getIngredients() {
-  return request(`${BURGER_API_URL}${INGREDIENTS_URL}`)
-}
-
-export function sendOrderRequest(data, accessToken) {
-  return request(`${BURGER_API_URL}${ORDER_URL}`, {
+export const getOrderData = async (ids) => {
+  return await fetch(URL.orders, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': accessToken
-    },
     body: JSON.stringify({
-      "ingredients": data
-    })
-  })
-}
-
-export function forgotPasswordRequest(email) {
-  return request(`${BURGER_API_URL}${FORGOT_PASS_URL}`, {
-    method: 'POST',
+      ingredients: ids
+    }),
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'email': email
-    })
-  })
-}
-
-export function resetPasswordRequest(password, token) {
-  return request(`${BURGER_API_URL}${RESET_PASS_URL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'password': password,
-      'token': token
-    })
-  })
-}
-
-export function registerUserRequest(email, password, name) {
-  return request(`${BURGER_API_URL}${REGISTER_USER_URL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email,
-      password,
-      name
-    })
-  })
-}
-
-export function loginRequest(email, password) {
-  return request(`${BURGER_API_URL}${LOGIN_URL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email,
-      password
-    })
-  })
-}
-
-export function checkUserDataRequest(accessToken) {
-  return request(`${BURGER_API_URL}${USER_URL}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'authorization': accessToken
     }
   })
+    .then(checkResponse)
 }
 
-export function changeUserDataRequest(name, email, password, accessToken) {
-  return request(`${BURGER_API_URL}${USER_URL}`, {
-    method: 'PATCH',
+export const setNewUser = async (user) => {
+  return await fetch(URL.register, {
+    method: 'POST',
+    body: JSON.stringify(user),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(checkResponse)
+}
+
+export function loginRequest(user) {
+  return fetch(URL.login, {
+    method: 'POST',
+    body: JSON.stringify(user),
     headers: {
       'Content-Type': 'application/json',
-      'authorization': accessToken
     },
-    body: JSON.stringify({
-      name,
-      email,
-      password
-    })
-  })
+  }).then(checkResponse);
 }
 
-export function refreshTokenRequest(refreshToken) {
-  return request(`${BURGER_API_URL}${TOKEN_URL}`, {
+export function logoutRequest(refreshToken) {
+  return fetch(URL.logout, {
     method: 'POST',
+    body: JSON.stringify({ token: refreshToken }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      token: refreshToken
-    })
-  }
-  )
+  }).then(checkResponse);
 }
 
-export function signOutRequest(refreshToken) {
-  return request(`${BURGER_API_URL}${LOGOUT_URL}`, {
+export function resetPasswordRequest(data) {
+  return fetch(URL.forgotPassword, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(checkResponse);
+}
+
+export function changePasswordRequest(data) {
+  return fetch(URL.resetPassword, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(checkResponse);
+}
+
+export function getUserRequest(accessToken) {
+  return fetch(URL.user, {
+    headers: {
+      authorization: accessToken,
+    },
+  }).then(checkResponse);
+}
+
+export function updateUserRequest(data, accessToken) {
+  return fetch(URL.user, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: accessToken,
+    },
+  }).then(checkResponse);
+}
+
+export function updateTokenRequest() {
+  return fetch(URL.token, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-type': 'application/json',
     },
     body: JSON.stringify({
-      token: refreshToken
-    })
-  })
+      token: localStorage.getItem('refreshToken'),
+    }),
+  }).then((data) => checkResponse(data));   
 }

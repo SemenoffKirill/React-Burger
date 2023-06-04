@@ -1,25 +1,33 @@
-import { Navigate } from "react-router-dom"
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../services/actions/user";
 import PropTypes from 'prop-types';
-import { getCookie } from "../../utils/cookie";
+import { useSelector } from 'react-redux';
+import { Navigate, useLocation } from 'react-router-dom';
+import { getAuthData } from '../../services/reducers/rootReducer';
 
-export const ProtectedRoute = ({ element, to }) => {
-  const dispatch = useDispatch();
-  const token = getCookie("accessToken");
-  const userData = useSelector((state) => state.userInfo.user);
+export const ProtectedRoute = ({ onlyUnAuth = false, element, ...rest }) => {
+  const { userData, isAuthCheked } = useSelector(getAuthData);
+  const location = useLocation();
 
-  useEffect(() => {
-    if (!userData) {
-      dispatch(getUserInfo(userData))
-    }
-  }, [dispatch, userData])
+  if (!isAuthCheked) {
+    return null;
+  }
 
-  return (userData && token) ? element : <Navigate to={to} replace/>;
-}
+  if (onlyUnAuth && userData) {
+    const { from } = location.state || { from: { pathname: '/' } };
+
+    return (
+      <Navigate to={from} replace />
+    )
+  }
+
+  if (!onlyUnAuth && !userData) {
+    return (
+      <Navigate to='/login' state={{ from: location }} replace />
+    )
+  }
+
+  return element;
+};
 
 ProtectedRoute.propTypes = {
-  element: PropTypes.object.isRequired,
-  to: PropTypes.string.isRequired
-}
+  element: PropTypes.element,
+};
