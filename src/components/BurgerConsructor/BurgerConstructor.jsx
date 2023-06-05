@@ -80,7 +80,14 @@ export default function BurgerConstructor() {
       <div className={`${styles.container} pl-4`} ref={dropTarget}>
         <div className='pr-4 pb-4 pl-8'>
           {!bun.price
-            ? (<p className='text text_type_main-medium pr-2'>Верхняя булка</p>)
+            ? (<div className='text text_type_main-medium pr-2'>
+              <ConstructorElement
+               type="top"
+               isLocked={true}
+               text={'Выберите булочку (верх)'}
+               price={0}
+              thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}/>
+            </div>)
             : (<ConstructorElement
               type='top'
               isLocked={true}
@@ -93,7 +100,7 @@ export default function BurgerConstructor() {
 
         <ul className={`${styles.list}`}>
           {fillings.length === 0
-            ? <p className='text text_type_main-medium pl-8 pt-4'>Нижняя булка</p>
+            ? <p className='text text_type_main-medium pl-8 pt-4'>Начиночка</p>
             : fillings.map((filling, index) => {
               return filling
                 ? (<ConstructorFilling
@@ -107,13 +114,23 @@ export default function BurgerConstructor() {
 
 
         <div className='pt-4 pr-4 pl-8'>
-          {!!bun.price && <ConstructorElement
-            type='bottom'
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
-          />}
+        {!bun.price
+            ? (<div className='text text_type_main-medium pr-2'>
+              <ConstructorElement
+               type="bottom"
+               isLocked={true}
+               text={'Выберите булочку (низ)'}
+               price={0}
+              thumbnail={`https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg`}/>
+            </div>)
+            : (<ConstructorElement
+              type='bottom'
+              isLocked={true}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />)
+          }
         </div>
 
       </div>
