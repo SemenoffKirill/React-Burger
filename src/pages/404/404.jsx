@@ -3,7 +3,7 @@ import {
   Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './404.module.css';
-import notFound from '../../images/not-found.png';
+import notFound from '../../images/not-found.jpg';
 
 export const NotFound404 = () => {
   const navigate = useNavigate();
@@ -13,10 +13,6 @@ export const NotFound404 = () => {
   return (
     <div className={styles.container}>
       <img src={notFound} alt="404 страница не найдена" className={styles.image} />
-
-      <p className="text text_type_main-large mb-6">
-        Сраница не найдена!
-      </p>
 
       <Button
         htmlType='button'

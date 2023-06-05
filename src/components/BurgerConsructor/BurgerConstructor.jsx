@@ -80,7 +80,7 @@ export default function BurgerConstructor() {
       <div className={`${styles.container} pl-4`} ref={dropTarget}>
         <div className='pr-4 pb-4 pl-8'>
           {!bun.price
-            ? (<p className='text text_type_main-medium pr-2'>1. Перетащите сюда понравившуюся булочку</p>)
+            ? (<p className='text text_type_main-medium pr-2'>Верхняя булка</p>)
             : (<ConstructorElement
               type='top'
               isLocked={true}
@@ -93,7 +93,7 @@ export default function BurgerConstructor() {
 
         <ul className={`${styles.list}`}>
           {fillings.length === 0
-            ? <p className='text text_type_main-medium pl-8 pt-4'>2. Перетащите сюда понравившуюся начинку</p>
+            ? <p className='text text_type_main-medium pl-8 pt-4'>Нижняя булка</p>
             : fillings.map((filling, index) => {
               return filling
                 ? (<ConstructorFilling
