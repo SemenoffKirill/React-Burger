@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 88px;
+  background: #1C1C21;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.btns {
+  display: flex;
+}
+
+.btns_left {
+  justify-self: flex-start;
+}
+
+.btns_right {
+  justify-self: flex-end;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #8585AD;
+  transition: color .25s ease-out;
+}
+
+.btn_active {
+  color: #F2F2F3;
+}
+
+.logo {
+  justify-self: center;
+}

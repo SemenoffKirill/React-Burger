@@ -1,0 +1,29 @@
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 272px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #F2F2F3;
+}
+
+.image {
+  max-width: 240px;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 48px;
+  text-align: center;
+}

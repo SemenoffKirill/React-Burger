@@ -1,0 +1,49 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.containerRoute {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 120px;
+	width: 100%;
+}
+
+.title {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	min-height: 64px;
+	padding: 0;
+}
+
+.titleRoute {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 64px;
+	padding: 0;
+}
+
+.list {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	width: 100%;
+	max-width: 520px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

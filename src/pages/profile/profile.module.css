@@ -1,0 +1,52 @@
+.container {
+	display: flex;
+  justify-self: flex-start;
+  width: 100%;
+	max-width: 1280px;
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+  width: 100%;
+  max-width: 320px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin: 0;
+	padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.text {
+	text-align: left;
+}
+
+.item {
+	padding: 17px 0;
+}
+
+.link {
+	text-decoration: none;
+	transition: color .25s ease-in;
+}
+
+.link:hover {
+	color: #f2f2f3;
+}
+
+.linkActive {
+  cursor: default;
+	color: #f2f2f3;
+	
+}
+
+.form {
+	width: 100%;
+  max-width: 480px;
+}
