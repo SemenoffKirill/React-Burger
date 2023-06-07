@@ -9,7 +9,7 @@ import {
   from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './AppHeader.module.css';
 import { useSelector } from 'react-redux';
-import { getAuthData } from '../../services/reducers/rootReducer';
+import { getAuthData } from '../../services/reducers/RootReducer';
 
 export default function AppHeader() {
   const { pathname } = useLocation();

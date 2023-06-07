@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './OrderDetails.module.css'
 import icon from '../../../images/icon-done.svg'
-import { getOrderDetails } from '../../../services/reducers/rootReducer';
+import { getOrderDetails } from '../../../services/reducers/RootReducer';
 
 export default function OrderDetails() {
   const { order } = useSelector(getOrderDetails);

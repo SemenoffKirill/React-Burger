@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getAuthData } from '../../services/reducers/rootReducer';
+import { getAuthData } from '../../services/reducers/RootReducer';
 
 export const ProtectedRoute = ({ onlyUnAuth = false, element, ...rest }) => {
   const { userData, isAuthCheked } = useSelector(getAuthData);

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Item from '../Ingredient/Ingredient';
 import styles from './IngredientsCategory.module.css';
-import { getBurgerIngredients } from '../../../services/reducers/rootReducer';
+import { getBurgerIngredients } from '../../../services/reducers/RootReducer';
 
 
 

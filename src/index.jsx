@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './components/App/App';
-import { rootReducer } from './services/reducers/rootReducer';
+import { rootReducer } from './services/reducers/RootReducer';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

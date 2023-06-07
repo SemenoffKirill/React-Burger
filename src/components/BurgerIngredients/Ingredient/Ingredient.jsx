@@ -8,7 +8,7 @@ import {
   Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientProps from '../../../utils/PropTypes';
-import { getBurgerConstructor } from '../../../services/reducers/rootReducer';
+import { getBurgerConstructor } from '../../../services/reducers/RootReducer';
 
 export default function BurgerIngredientsItem({ ingredient }) {
   const location = useLocation();

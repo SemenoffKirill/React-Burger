@@ -7,7 +7,7 @@ import {
   updateUserRequest,
   getUserRequest,
   updateTokenRequest,
-} from '../../utils/api';
+} from '../../utils/Api';
 import {
   setCookie,
   getCookie,

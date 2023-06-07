@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getBurgerIngredients } from '../../../services/reducers/rootReducer';
+import { getBurgerIngredients } from '../../../services/reducers/RootReducer';
 import styles from './IngredientDetails.module.css'
 
 export default function IngredientDetails({ isBackground }) {

@@ -12,7 +12,7 @@ import {
   STOP_CHANGE,
   setChangedUser,
 } from '../../services/actions/user';
-import { getAuthData } from '../../services/reducers/rootReducer';
+import { getAuthData } from '../../services/reducers/RootReducer';
 
 export const Profile = () => {
   const dispatch = useDispatch();

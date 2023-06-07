@@ -22,7 +22,7 @@ import {
   getOrder,
 } from '../../services/actions/order-details';
 import { CLEAR_CONSTRUCTOR } from '../../services/actions/burger-constructor';
-import { getBurgerConstructor, getOrderDetails, getAuthData } from '../../services/reducers/rootReducer';
+import { getBurgerConstructor, getOrderDetails, getAuthData } from '../../services/reducers/RootReducer';
 
 
 export default function BurgerConstructor() {

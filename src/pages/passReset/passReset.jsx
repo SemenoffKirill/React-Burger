@@ -8,7 +8,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './passReset.module.css';
 import { setNewPassword } from '../../services/actions/user';
-import { getAuthData } from '../../services/reducers/rootReducer';
+import { getAuthData } from '../../services/reducers/RootReducer';
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();
